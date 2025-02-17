@@ -1,17 +1,22 @@
 // Save pricing to localStorage
 function savePricing() {
-    const perInchPrice = parseFloat(document.getElementById('perInchPrice').value) || 0;
-    const pricing = {
-        perInchPrice: perInchPrice,
-        Option1: { basePrice: parseFloat(document.getElementById('basePriceOption1').value) || 0 },
-        Option2: { basePrice: parseFloat(document.getElementById('basePriceOption2').value) || 0 },
-        Option3: { basePrice: parseFloat(document.getElementById('basePriceOption3').value) || 0 },
-        Option4: { basePrice: parseFloat(document.getElementById('basePriceOption4').value) || 0 },
-        Option5: { basePrice: parseFloat(document.getElementById('basePriceOption5').value) || 0 }
-    };
-    
-    localStorage.setItem('pricing', JSON.stringify(pricing));
-    document.getElementById('pricingMessage').textContent = 'Pricing saved successfully!';
+    try {
+        const perInchPrice = parseFloat(document.getElementById('perInchPrice').value) || 0;
+        const pricing = {
+            perInchPrice: perInchPrice,
+            Option1: { basePrice: parseFloat(document.getElementById('basePriceOption1').value) || 0 },
+            Option2: { basePrice: parseFloat(document.getElementById('basePriceOption2').value) || 0 },
+            Option3: { basePrice: parseFloat(document.getElementById('basePriceOption3').value) || 0 },
+            Option4: { basePrice: parseFloat(document.getElementById('basePriceOption4').value) || 0 },
+            Option5: { basePrice: parseFloat(document.getElementById('basePriceOption5').value) || 0 }
+        };
+        
+        localStorage.setItem('pricing', JSON.stringify(pricing));
+        document.getElementById('pricingMessage').textContent = 'Pricing saved successfully!';
+    } catch (error) {
+        console.error('Error saving pricing:', error);
+        document.getElementById('pricingMessage').textContent = 'Error saving pricing. Please try again.';
+    }
 }
 
 // Calculate quote based on selected options and pricing
