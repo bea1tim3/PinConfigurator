@@ -1,25 +1,26 @@
 // Save pricing to localStorage
 function savePricing() {
+    const perInchPrice = parseFloat(document.getElementById('perInchPrice').value) || 0;
     const pricing = {
         Option1: {
             basePrice: parseFloat(document.getElementById('basePriceOption1').value) || 0,
-            perInchPrice: parseFloat(document.getElementById('perInchPriceOption1').value) || 0
+            perInchPrice: perInchPrice
         },
         Option2: {
             basePrice: parseFloat(document.getElementById('basePriceOption2').value) || 0,
-            perInchPrice: parseFloat(document.getElementById('perInchPriceOption2').value) || 0
+            perInchPrice: perInchPrice
         },
         Option3: {
             basePrice: parseFloat(document.getElementById('basePriceOption3').value) || 0,
-            perInchPrice: parseFloat(document.getElementById('perInchPriceOption3').value) || 0
+            perInchPrice: perInchPrice
         },
         Option4: {
             basePrice: parseFloat(document.getElementById('basePriceOption4').value) || 0,
-            perInchPrice: parseFloat(document.getElementById('perInchPriceOption4').value) || 0
+            perInchPrice: perInchPrice
         },
         Option5: {
             basePrice: parseFloat(document.getElementById('basePriceOption5').value) || 0,
-            perInchPrice: parseFloat(document.getElementById('perInchPriceOption5').value) || 0
+            perInchPrice: perInchPrice
         }
     };
     
@@ -58,7 +59,8 @@ if (document.getElementById('basePriceOption1')) {
     if (pricing) {
         Object.keys(pricing).forEach(option => {
             document.getElementById(`basePrice${option}`).value = pricing[option].basePrice;
-            document.getElementById(`perInchPrice${option}`).value = pricing[option].perInchPrice;
         });
+        // Set the single per-inch price field (using Option1's value as they're all the same)
+        document.getElementById('perInchPrice').value = pricing.Option1 ? pricing.Option1.perInchPrice : 0;
     }
 }
