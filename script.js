@@ -2,26 +2,12 @@
 function savePricing() {
     const perInchPrice = parseFloat(document.getElementById('perInchPrice').value) || 0;
     const pricing = {
-        Option1: {
-            basePrice: parseFloat(document.getElementById('basePriceOption1').value) || 0,
-            perInchPrice: perInchPrice
-        },
-        Option2: {
-            basePrice: parseFloat(document.getElementById('basePriceOption2').value) || 0,
-            perInchPrice: perInchPrice
-        },
-        Option3: {
-            basePrice: parseFloat(document.getElementById('basePriceOption3').value) || 0,
-            perInchPrice: perInchPrice
-        },
-        Option4: {
-            basePrice: parseFloat(document.getElementById('basePriceOption4').value) || 0,
-            perInchPrice: perInchPrice
-        },
-        Option5: {
-            basePrice: parseFloat(document.getElementById('basePriceOption5').value) || 0,
-            perInchPrice: perInchPrice
-        }
+        perInchPrice: perInchPrice,
+        Option1: { basePrice: parseFloat(document.getElementById('basePriceOption1').value) || 0 },
+        Option2: { basePrice: parseFloat(document.getElementById('basePriceOption2').value) || 0 },
+        Option3: { basePrice: parseFloat(document.getElementById('basePriceOption3').value) || 0 },
+        Option4: { basePrice: parseFloat(document.getElementById('basePriceOption4').value) || 0 },
+        Option5: { basePrice: parseFloat(document.getElementById('basePriceOption5').value) || 0 }
     };
     
     localStorage.setItem('pricing', JSON.stringify(pricing));
@@ -34,13 +20,14 @@ function calculateQuote() {
     const selectedOptions = Array.from(document.querySelectorAll('input[name="options"]:checked'))
         .map(checkbox => checkbox.value);
     
-    const pricing = JSON.parse(localStorage.getItem('pricing')) || {};
+    const pricing = JSON.parse(localStorage.getItem('pricing')) || { perInchPrice: 0 };
     let totalCost = 0;
     let breakdown = '';
 
     selectedOptions.forEach(option => {
-        const optionPricing = pricing[option] || { basePrice: 0, perInchPrice: 0 };
-        const cost = optionPricing.basePrice + (optionPricing.perInchPrice * pinLength);
+        const optionPricing = pricing[option] || { basePrice: 0 };
+        // Use the universal perInchPrice for all options
+        const cost = optionPricing.basePrice + (pricing.perInchPrice * pinLength);
         totalCost += cost;
         breakdown += `${option}: $${cost.toFixed(2)}<br>`;
     });
@@ -57,10 +44,11 @@ function calculateQuote() {
 if (document.getElementById('basePriceOption1')) {
     const pricing = JSON.parse(localStorage.getItem('pricing'));
     if (pricing) {
-        Object.keys(pricing).forEach(option => {
-            document.getElementById(`basePrice${option}`).value = pricing[option].basePrice;
+        document.getElementById('perInchPrice').value = pricing.perInchPrice || 0;
+        Object.keys(pricing).forEach(key => {
+            if (key.startsWith('Option')) {
+                document.getElementById(`basePrice${key}`).value = pricing[key].basePrice;
+            }
         });
-        // Set the single per-inch price field (using Option1's value as they're all the same)
-        document.getElementById('perInchPrice').value = pricing.Option1 ? pricing.Option1.perInchPrice : 0;
     }
 }
