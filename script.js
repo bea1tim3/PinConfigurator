@@ -24,31 +24,22 @@ function calculateQuote() {
     let totalCost = 0;
     let breakdown = '';
 
+    // Calculate the per-inch cost (applied once to total length)
+    const perInchCost = pricing.perInchPrice * pinLength;
+
+    // Calculate the sum of base prices for selected options
+    let optionsCost = 0;
     selectedOptions.forEach(option => {
         const optionPricing = pricing[option] || { basePrice: 0 };
-        // Use the universal perInchPrice for all options
-        const cost = optionPricing.basePrice + (pricing.perInchPrice * pinLength);
-        totalCost += cost;
-        breakdown += `${option}: $${cost.toFixed(2)}<br>`;
+        optionsCost += optionPricing.basePrice;
+        breakdown += `${option}: $${optionPricing.basePrice.toFixed(2)} (base price)<br>`;
     });
+
+    // Total cost = per-inch cost + sum of base prices
+    totalCost = perInchCost + optionsCost;
 
     const quoteResult = document.getElementById('quoteResult');
     if (selectedOptions.length === 0) {
         quoteResult.textContent = 'Please select at least one option.';
     } else {
-        quoteResult.innerHTML = `Total Quote: $${totalCost.toFixed(2)}<br><br>Breakdown:<br>${breakdown}`;
-    }
-}
-
-// Load pricing on pricing page load (if exists)
-if (document.getElementById('basePriceOption1')) {
-    const pricing = JSON.parse(localStorage.getItem('pricing'));
-    if (pricing) {
-        document.getElementById('perInchPrice').value = pricing.perInchPrice || 0;
-        Object.keys(pricing).forEach(key => {
-            if (key.startsWith('Option')) {
-                document.getElementById(`basePrice${key}`).value = pricing[key].basePrice;
-            }
-        });
-    }
-}
+        quoteResult.innerHTML = `Total Quote: $${totalCost.toFixed(2)}<br><br>Breakdown
