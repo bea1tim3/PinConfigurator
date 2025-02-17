@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Configurator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pin Configurator</h1>
+        <form id="configForm">
+            <div class="form-group">
+                <label for="pinLength">Pin Length (in):</label>
+                <input type="number" id="pinLength" name="pinLength" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <h3>Options:</h3>
+                <label><input type="checkbox" name="options" value="Option1"> Option1</label><br>
+                <label><input type="checkbox" name="options" value="Option2"> Option2</label><br>
+                <label><input type="checkbox" name="options" value="Option3"> Option3</label><br>
+                <label><input type="checkbox" name="options" value="Option4"> Option4</label><br>
+                <label><input type="checkbox" name="options" value="Option5"> Option5</label>
+            </div>
+            <button type="button" onclick="calculateQuote()">Calculate Quote</button>
+        </form>
+        <div id="quoteResult"></div>
+        <a href="pricing.html">Go to Option Pricing</a>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
