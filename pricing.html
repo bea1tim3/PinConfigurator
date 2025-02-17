@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Option Pricing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Option Pricing</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Option</th>
+                    <th>Base Price ($)</th>
+                    <th>Price per Inch ($/in)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Option1</td>
+                    <td><input type="number" id="basePriceOption1" min="0" step="0.01" value="0"></td>
+                    <td><input type="number" id="perInchPriceOption1" min="0" step="0.01" value="0"></td>
+                </tr>
+                <tr>
+                    <td>Option2</td>
+                    <td><input type="number" id="basePriceOption2" min="0" step="0.01" value="0"></td>
+                    <td><input type="number" id="perInchPriceOption2" min="0" step="0.01" value="0"></td>
+                </tr>
+                <tr>
+                    <td>Option3</td>
+                    <td><input type="number" id="basePriceOption3" min="0" step="0.01" value="0"></td>
+                    <td><input type="number" id="perInchPriceOption3" min="0" step="0.01" value="0"></td>
+                </tr>
+                <tr>
+                    <td>Option4</td>
+                    <td><input type="number" id="basePriceOption4" min="0" step="0.01" value="0"></td>
+                    <td><input type="number" id="perInchPriceOption4" min="0" step="0.01" value="0"></td>
+                </tr>
+                <tr>
+                    <td>Option5</td>
+                    <td><input type="number" id="basePriceOption5" min="0" step="0.01" value="0"></td>
+                    <td><input type="number" id="perInchPriceOption5" min="0" step="0.01" value="0"></td>
+                </tr>
+            </tbody>
+        </table>
+        <button onclick="savePricing()">Save Pricing</button>
+        <div id="pricingMessage"></div>
+        <a href="index.html">Back to Configurator</a>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
