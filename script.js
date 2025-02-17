@@ -42,4 +42,22 @@ function calculateQuote() {
     if (selectedOptions.length === 0) {
         quoteResult.textContent = 'Please select at least one option.';
     } else {
-        quoteResult.innerHTML = `Total Quote: $${totalCost.toFixed(2)}<br><br>Breakdown
+        quoteResult.innerHTML = `Total Quote: $${totalCost.toFixed(2)}<br><br>Breakdown:<br>` +
+            `Per-inch cost: $${perInchCost.toFixed(2)} (${pricing.perInchPrice.toFixed(2)}/in × ${pinLength} in)<br>` +
+            `Options cost: $${optionsCost.toFixed(2)}<br>` +
+            breakdown;
+    }
+}
+
+// Load pricing on pricing page load (if exists)
+if (document.getElementById('basePriceOption1')) {
+    const pricing = JSON.parse(localStorage.getItem('pricing'));
+    if (pricing) {
+        document.getElementById('perInchPrice').value = pricing.perInchPrice || 0;
+        Object.keys(pricing).forEach(key => {
+            if (key.startsWith('Option')) {
+                document.getElementById(`basePrice${key}`).value = pricing[key].basePrice;
+            }
+        });
+    }
+}
